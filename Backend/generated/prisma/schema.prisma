@@ -1,0 +1,149 @@
+// =============================================================
+// Prisma Schema — Realtime Interactive Polling App
+// Provider: MySQL (вимагає MySQL 8.0.16+ для Enum як CHECK constraints)
+//
+// Архітектурні рішення:
+// - Enum типи визначені нативно через Prisma enum (MySQL CHECK constraints)
+// - Result.optionIds зберігається як JSON для підтримки MULTIPLE_CHOICE
+//   без денормалізації таблиці
+// - Session.currentQuestion — для MANUAL режиму зберігає стан в БД
+//   (джерело правди), Redis кешує для швидкого доступу з WebSocket
+// =============================================================
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+// ─── Enum: Тип питання ────────────────────────────────────────
+enum QuestionType {
+  SINGLE_CHOICE // Один правильний варіант
+  MULTIPLE_CHOICE // Кілька правильних варіантів
+}
+
+// ─── Enum: Режим прогресії сесії ─────────────────────────────
+// MANUAL     — організатор вручну перемикає питання для всіх
+// SELF_PACED — кожен учасник просувається індивідуально після відповіді
+enum ProgressionMode {
+  MANUAL
+  SELF_PACED
+}
+
+// ─── Enum: Стан сесії ─────────────────────────────────────────
+enum SessionStatus {
+  WAITING // Лобі — очікуємо учасників
+  ACTIVE // Сесія йде
+  FINISHED // Завершена
+}
+
+// ─── Model: User (Організатор) ───────────────────────────────
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique @db.VarChar(255)
+  password  String   @db.VarChar(255) // bcrypt hash
+  name      String   @db.VarChar(100)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  polls    Poll[]
+  sessions Session[]
+
+  @@map("users")
+}
+
+// ─── Model: Poll (Опитування) ────────────────────────────────
+model Poll {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  description String?  @db.Text
+  organizerId Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  organizer User       @relation(fields: [organizerId], references: [id], onDelete: Cascade)
+  questions Question[]
+  sessions  Session[]
+
+  @@index([organizerId])
+  @@map("polls")
+}
+
+// ─── Model: Question (Питання) ───────────────────────────────
+model Question {
+  id        Int          @id @default(autoincrement())
+  text      String       @db.Text
+  timeLimit Int // Секунди (0 = без ліміту)
+  type      QuestionType
+  order     Int // Порядковий номер у опитуванні (для сортування)
+  pollId    Int
+  createdAt DateTime     @default(now())
+
+  poll    Poll     @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  options Option[]
+  results Result[]
+
+  @@index([pollId, order]) // Складений індекс для швидкої пагінації по порядку
+  @@map("questions")
+}
+
+// ─── Model: Option (Варіант відповіді) ───────────────────────
+model Option {
+  id         Int      @id @default(autoincrement())
+  text       String   @db.VarChar(500)
+  isCorrect  Boolean  @default(false) // Ніколи не передається клієнту напряму!
+  questionId Int
+  createdAt  DateTime @default(now())
+
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([questionId])
+  @@map("options")
+}
+
+// ─── Model: Session (Ігрова сесія) ───────────────────────────
+model Session {
+  id              Int             @id @default(autoincrement())
+  pin             String          @unique @db.VarChar(6) // 6-значний код підключення
+  status          SessionStatus   @default(WAITING)
+  progressionMode ProgressionMode // Режим прогресії — ключове поле архітектури
+  currentQuestion Int             @default(0) // Для MANUAL: поточний індекс питання
+  pollId          Int
+  organizerId     Int
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  poll      Poll     @relation(fields: [pollId], references: [id])
+  organizer User     @relation(fields: [organizerId], references: [id])
+  results   Result[]
+
+  @@index([pollId])
+  @@index([organizerId])
+  @@map("sessions")
+}
+
+// ─── Model: Result (Результат відповіді) ─────────────────────
+// Архітектурне рішення: optionIds зберігається як JSON масив.
+// Це уникає окремої таблиці many-to-many (ResultOption) і дозволяє
+// ефективно зберігати як [1] для SINGLE_CHOICE, так і [1,3,5] для MULTIPLE_CHOICE.
+// Flush з Redis до MySQL виконується батчами при переході питань.
+model Result {
+  id            Int      @id @default(autoincrement())
+  sessionId     Int
+  questionId    Int
+  participantId String   @db.VarChar(36) // UUID v4 учасника (persistent через reconnects)
+  optionIds     Json // Array<number> — обраний(-і) варіант(-и)
+  score         Int      @default(0) // 0–100 балів за питання
+  answeredAt    DateTime @default(now())
+
+  session  Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id])
+
+  // Унікальна пара: один учасник — одна відповідь на питання в сесії
+  @@unique([sessionId, questionId, participantId])
+  @@index([sessionId, questionId])
+  @@map("results")
+}

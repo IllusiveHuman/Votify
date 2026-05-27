@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE `options` ADD COLUMN `points` INTEGER NOT NULL DEFAULT 100;
+
+-- AlterTable
+ALTER TABLE `questions` ADD COLUMN `points` INTEGER NOT NULL DEFAULT 100;
