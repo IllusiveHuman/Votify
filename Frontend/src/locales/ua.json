@@ -1,0 +1,248 @@
+{
+  "appName": "Votify",
+  "backToHome": "На головну",
+  "backToDashboard": "Дашборд",
+  "backToArchive": "Назад до архіву",
+
+  "validation": {
+    "required": "Це поле обов'язкове",
+    "emailInvalid": "Введіть коректний email",
+    "passwordMin": "Мінімум 6 символів",
+    "pinMin": "Мінімум 4 цифри"
+  },
+
+  "login": {
+    "title": "Вхід",
+    "noAccount": "Немає акаунту?",
+    "registerLink": "Зареєструватись",
+    "labelEmail": "Email",
+    "labelPassword": "Пароль",
+    "placeholderEmail": "you@example.com",
+    "placeholderPassword": "••••••••",
+    "submit": "Увійти",
+    "errorInvalid": "Невірний email або пароль"
+  },
+
+  "register": {
+    "title": "Реєстрація",
+    "hasAccount": "Вже є акаунт?",
+    "loginLink": "Увійти",
+    "labelName": "Ім'я",
+    "labelEmail": "Email",
+    "labelPassword": "Пароль",
+    "placeholderName": "Іван Петренко",
+    "placeholderEmail": "you@example.com",
+    "placeholderPasswordMin": "мін. 6 символів",
+    "submit": "Зареєструватись",
+    "errorPasswordShort": "Пароль має бути не менше 6 символів",
+    "errorGeneric": "Не вдалося створити акаунт. Перевірте дані."
+  },
+
+  "filters": {
+    "searchPlaceholder": "Пошук за назвою...",
+    "dateFrom": "Від",
+    "dateTo": "До",
+    "sortBy": "Сортувати за",
+    "sortByDate": "Датою",
+    "sortByQuestions": "Кількістю питань",
+    "sortBySessions": "Кількістю сесій",
+    "sortByParticipants": "Кількістю учасників",
+    "sortAsc": "За зростанням",
+    "sortDesc": "За спаданням",
+    "perPage": "на сторінці",
+    "page": "Сторінка",
+    "of": "з",
+    "prev": "Попередня",
+    "next": "Наступна",
+    "noResults": "Нічого не знайдено"
+  },
+
+  "dashboard": {
+    "navPolls": "Мої опитування",
+    "navHistory": "Архів результатів",
+    "logout": "Вийти",
+    "title": "Мої опитування",
+    "createNew": "Створити нове",
+    "empty": "Поки що немає опитувань. Створіть перше!",
+    "colTitle": "Назва",
+    "colQuestions": "Питань",
+    "colSessions": "Сесій",
+    "colDate": "Дата",
+    "colActions": "Дії",
+    "actionEdit": "Редагувати",
+    "actionDuplicate": "Копіювати",
+    "actionDelete": "Видалити",
+    "actionLaunch": "Запустити",
+    "confirmDelete": "Видалити опитування?",
+    "editLockedTooltip": "Є сесії — редагування заблоковано щоб не зіпсувати архів результатів. Дублюйте, щоб змінити."
+  },
+
+  "builder": {
+    "titleNew": "Нове опитування",
+    "titleEdit": "Редагування",
+    "titleLocked": "Перегляд (заблоковано)",
+    "lockedBanner": "Це опитування вже мало сесії — редагування заблоковано, щоб не зіпсувати архів результатів.",
+    "lockedBannerAction": "Дублюйте опитування, щоб створити нову версію.",
+    "save": "Зберегти",
+    "labelTitle": "Назва *",
+    "labelDescription": "Опис",
+    "placeholderTitle": "Назва опитування",
+    "placeholderDescription": "Необов'язково",
+    "labelQuestionText": "Текст питання",
+    "placeholderQuestionText": "Введіть питання",
+    "labelType": "Тип",
+    "labelTimeLimit": "Час (сек)",
+    "labelOptions": "Варіанти",
+    "typeSingle": "Одна відповідь",
+    "typeMultiple": "Декілька відповідей",
+    "noText": "Без тексту",
+    "addOption": "+ Додати варіант",
+    "addQuestion": "+ Додати питання",
+    "checkboxCorrect": "Правильна відповідь",
+    "optionPlaceholder": "Варіант",
+    "alertNoTitle": "Введіть назву опитування",
+    "timeLimitPlaceholder": "Без обмеження",
+    "timeLimitHint": "сек (порожньо = без ліміту)",
+    "timeLimitManualHint": "Недоступно в ручному режимі",
+    "modeLabel": "Режим проведення",
+    "modeAuto": "Автоматичний",
+    "modeManual": "Ручний",
+    "modeAutoHint": "Кожен учасник у своєму темпі",
+    "modeManualHint": "Організатор вручну перемикає питання",
+    "labelPoints": "Балів",
+    "pointsHint": "за правильну відповідь",
+    "optionPointsLabel": "б."
+  },
+
+  "launchModal": {
+    "title": "Оберіть режим проведення",
+    "autoTitle": "Автоматичний",
+    "autoDesc": "Кожен учасник рухається у своєму темпі",
+    "manualTitle": "Ручний",
+    "manualDesc": "Ви вручну перемикаєте питання для всіх",
+    "cancel": "Скасувати"
+  },
+
+  "lobby": {
+    "pinLabel": "PIN-код сесії",
+    "orOpen": "Або відкрийте:",
+    "participantsConnected": "учасник(ів) підключено",
+    "startGame": "Почати гру",
+    "gamePlaying": "Гра йде…",
+    "endForced": "Завершити сесію",
+    "confirmEnd": "Завершити сесію?",
+    "cancelSession": "Скасувати сесію",
+    "confirmCancel": "Скасувати сесію і видалити всіх учасників?",
+    "nextQuestion": "Наступне питання",
+    "questionLabel": "Питання",
+    "waitingAnswers": "Очікуємо відповідей…",
+    "totalVotes": "відп.",
+    "modeManual": "Ручний режим",
+    "modeAuto": "Авто-режим"
+  },
+
+  "history": {
+    "title": "Архів тестувань",
+    "empty": "Поки що немає проведених тестувань",
+    "colTestName": "Назва тесту",
+    "colPin": "PIN",
+    "colStatus": "Статус",
+    "colParticipants": "Учасників",
+    "colDate": "Дата",
+    "actionView": "Переглянути",
+    "actionOpenLobby": "Відкрити лобі",
+    "actionContinue": "Продовжити",
+    "statusWaiting": "Очікування",
+    "statusActive": "Активна",
+    "statusFinished": "Завершена"
+  },
+
+  "orgResults": {
+    "title": "Результати",
+    "pinPrefix": "PIN:",
+    "chartsSection": "Аналіз відповідей по питаннях",
+    "questionLabel": "Питання",
+    "tooltipVotes": "відповідей",
+    "tooltipLabel": "Голоси",
+    "leaderboard": "Таблиця лідерів",
+    "colRank": "#",
+    "colParticipant": "Учасник",
+    "colScore": "Бал",
+    "noParticipants": "Немає учасників",
+    "errorLoad": "Не вдалося завантажити результати",
+    "noData": "Немає даних",
+    "votersShowMore": "ще",
+    "votersCollapse": "згорнути",
+    "summaryParticipants": "Учасників",
+    "summaryAvgScore": "Середній бал",
+    "summaryMaxScore": "Найвищий бал",
+    "summaryCorrectRate": "Правильних відповідей",
+    "difficultyTitle": "Рейтинг складності питань",
+    "difficultyCorrectSuffix": "відп. правильно",
+    "difficultyEasy": "Легке",
+    "difficultyMedium": "Середнє",
+    "difficultyHard": "Складне",
+    "difficultyNoData": "Питання без правильних відповідей не враховуються"
+  },
+
+  "home": {
+    "tagline": "Інтерактивне тестування в реальному часі",
+    "roleParticipant": "Я учасник",
+    "roleParticipantDesc": "Маю PIN-код і хочу приєднатись до тесту",
+    "roleOrganizer": "Я організатор",
+    "roleOrganizerDesc": "Хочу створити або провести опитування",
+    "pinLabel": "Введіть PIN-код",
+    "pinPlaceholder": "000000",
+    "joinButton": "Приєднатися",
+    "organizerButton": "Увійти до кабінету",
+    "backToRoles": "Змінити роль"
+  },
+
+  "join": {
+    "waitingTitle": "Очікуємо початку гри…",
+    "pinPrefix": "PIN:",
+    "nameTitle": "Як вас звати?",
+    "namePlaceholder": "Ваше ім'я",
+    "submitButton": "Увійти в кімнату",
+    "connecting": "Підключення до сервера…"
+  },
+
+  "play": {
+    "waitingGame": "Очікуємо початку гри…",
+    "answered": "Відповідь прийнята!",
+    "waitingNext": "Очікуємо наступне питання…",
+    "loadingResults": "Завантаження результатів…",
+    "yourScore": "Ваш бал:",
+    "questionOf": "з",
+    "questionPrefix": "Питання",
+    "multiHint": "Виберіть усі правильні варіанти",
+    "submitAnswer": "Відповісти",
+    "timerSuffix": "с"
+  },
+
+  "participantResults": {
+    "waitingResults": "Чекаємо результатів…",
+    "finished": "Тест завершено!",
+    "pinPrefix": "PIN:",
+    "yourScore": "Ваш бал",
+    "noScoreData": "Результати недоступні після перезавантаження сторінки"
+  },
+
+  "settings": {
+    "title": "Налаштування",
+    "navLink": "Налаштування",
+    "changePasswordSection": "Зміна паролю",
+    "labelCurrentPassword": "Поточний пароль",
+    "labelNewPassword": "Новий пароль",
+    "labelConfirmPassword": "Підтвердіть новий пароль",
+    "placeholderCurrentPassword": "••••••••",
+    "placeholderNewPassword": "мін. 8 символів",
+    "placeholderConfirmPassword": "••••••••",
+    "submitButton": "Змінити пароль",
+    "successMessage": "Пароль успішно змінено!",
+    "errorWrongCurrent": "Поточний пароль невірний",
+    "errorGeneric": "Не вдалося змінити пароль. Спробуйте ще раз.",
+    "errorPasswordMismatch": "Паролі не співпадають",
+    "errorNewPasswordMin": "Мінімум 8 символів"
+  }
+}
